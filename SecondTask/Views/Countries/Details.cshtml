@@ -1,0 +1,41 @@
+﻿@model Country
+@{
+    ViewData["Title"] = "Детальная информация";
+
+    var name = Model.Name.Common;
+    var region = Model.Region;
+    var capital = Model.Capital;
+    var languages = Model.Languages;
+}
+
+<section class="details">
+    @if (Model != null)
+    {
+        <a href="@Url.Action("Index", "Countries")">
+            <button class="button">К списку</button>
+        </a>
+        <h2>Страна @name</h2>
+        <p>@(!String.IsNullOrEmpty(region) ? $"Регион: {region}" : "Нет данных о регионе")</p>
+        @if (capital?.Length > 0)
+        {
+            <p>@(capital.Length > 1 ? "Столицы" : "Столица"): @string.Join(", ", capital)</p>
+        } 
+        else
+        {
+            <p>Нет данных о столицах</p>
+        }
+        @if (languages?.Count > 0)
+        {
+            <p>@(languages.Count > 1 ? "Языки" : "Язык"): @string.Join(", ", languages.Values)</p>
+        }
+        else
+        {
+            <p>Нет данных о языках</p>
+        }
+    } 
+    else
+    {
+        <p class="text-center">Не удалось получить информацию о стране</p>
+    }
+</section>
+

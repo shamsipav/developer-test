@@ -1,0 +1,58 @@
+﻿@model List<Country>
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<section class="main">
+    <h2 class="text-center">Список стран мира</h2>
+    @if (Model != null)
+    {
+        <div class="form-wrapper">
+            <div class="filters">
+                <p>Фильтры</p>
+                <div class="filters__content">
+                    <form action="@Url.Action("Index", "Countries")" method="GET">
+                        <input type="text" name="search" value="@ViewBag.Search" placeholder="Название (Eng)" autocomplete="off" />
+                        <select name="sortOrder">
+                            <option selected disabled>Сортировка по алфавиту</option>
+                            <option value="asc" selected="@(ViewBag.SortOrder == "asc")">По возрастанию</option>
+                            <option value="desc" selected="@(ViewBag.SortOrder == "desc")">По убыванию</option>
+                        </select>
+                        <button>Применить</button>
+                    </form>
+                    @if (!string.IsNullOrEmpty(ViewBag.SortOrder) || !string.IsNullOrEmpty(ViewBag.Search))
+                    {
+                        <a href="/">
+                            <button type="submit" class="gray">Сбросить</button>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(ViewBag.Search))
+        {
+            <p class="text-center mb-1">Результаты поиска страны по названию "@ViewBag.Search"</p>
+        }
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Столица</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var country in Model)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Details", "Countries", new { countryName = country.Name.Common.ToLower() })">@country.Name.Common</a></td>
+                        <td>@string.Join(", ", country.Capital)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">Не удалось получить список стран</p>
+    }
+</section>
