@@ -37,7 +37,7 @@ namespace SecondTask.Services
         {
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"{API_URL}/name/{countryName}?fields=name,capital,region,languages");
+                HttpResponseMessage response = await httpClient.GetAsync($"{API_URL}/name/{countryName}?fullText=true&fields=name,capital,region,languages");
 
                 if (response.IsSuccessStatusCode)
                 {
