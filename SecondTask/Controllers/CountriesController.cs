@@ -36,7 +36,7 @@ namespace SecondTask.Controllers
         {
             if (!string.IsNullOrEmpty(search))
             {
-                return countries.Where(country => country.Name.Common.ToLower().Contains(search.ToLower())).ToList();
+                return countries.Where(country => country.Name.Common.ToLower().Contains(search) || country.Name.Official.ToLower().Contains(search)).ToList();
             }
 
             return countries;
