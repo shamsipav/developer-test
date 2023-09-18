@@ -31,7 +31,7 @@
         </div>
         @if (!string.IsNullOrEmpty(ViewBag.Search))
         {
-            <p class="text-center mb-1">Результаты поиска страны по названию "@ViewBag.Search"</p>
+            <p class="text-center mb-1">Результаты поиска страны по названию "@ViewBag.Search" (@Model.Count)</p>
         }
         <table>
             <thead>
@@ -44,7 +44,7 @@
                 @foreach (var country in Model)
                 {
                     <tr>
-                        <td><a href="@Url.Action("Details", "Countries", new { countryName = country.Name.Common.ToLower() })">@country.Name.Common</a></td>
+                        <td><a href="@Url.Action("Details", "Countries", new { countryName = country.Name.Common.ToLower() })">@country.Name.Common (@country.Name.Official)</a></td>
                         <td>@string.Join(", ", country.Capital)</td>
                     </tr>
                 }

@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Детальная информация";
 
-    var name = Model.Name.Common;
+    var commonName = Model.Name.Common;
+    var officalName = Model.Name.Official;
     var region = Model.Region;
     var capital = Model.Capital;
     var languages = Model.Languages;
@@ -14,7 +15,7 @@
         <a href="@Url.Action("Index", "Countries")">
             <button class="button">К списку</button>
         </a>
-        <h2>Страна @name</h2>
+        <h2>Страна @commonName (@officalName)</h2>
         <p>@(!String.IsNullOrEmpty(region) ? $"Регион: {region}" : "Нет данных о регионе")</p>
         @if (capital?.Length > 0)
         {
